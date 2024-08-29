@@ -31,5 +31,5 @@ export const useInfiniteScroll = (props: IUseInfiniteScroll) => {
     };
   }, [isFetching, newElementsPerRequestCount, callBack]);
 
-  return { currentElementsCount, isPostsFetching: isFetching };
+  return { currentElementsCount };
 };
