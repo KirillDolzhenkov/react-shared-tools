@@ -1,24 +1,45 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
 
-export interface IUseObserverInfiniteScroll {
+type CSSLength = 'auto' | `${number}%` | `${number}em` | `${number}px` | `${number}rem`;
+
+interface IObserverOptions {
+    root: HTMLElement | null;
+    rootMargin: `${CSSLength} ${CSSLength} ${CSSLength} ${CSSLength}` | `${CSSLength} ${CSSLength}` | CSSLength;
+    threshold: number;
+}
+
+type PropsOptions = Omit<IObserverOptions, 'root'>;
+
+export interface IUseObserverInfiniteScroll extends Partial<PropsOptions> {
     callBack?: () => void;
     triggerRef: MutableRefObject<HTMLDivElement>;
     wrapperRef?: MutableRefObject<HTMLDivElement>;
 }
 
+/**
+ *
+ * @param props {callBack: () => void, rootMargin: string, threshold: number, triggerRef: MutableRefObject<HTMLDivElement>, wrapperRef?: MutableRefObject<HTMLDivElement> }
+ *
+ * callBack - Функция, которая будет вызвана при попадании в область наблюдения.
+ * triggerRef - Элемент, который будет вызывать срабатывание callback при попадании в область наблюдения.
+ * wrapperRef - Элемент, который будет использоваться как корневой элемент для наблюдения. Если null, то как корневой элемент  будет использоваться viewport (Экран пользователя).
+ * rootMargin - Отступы к корневому элементу. Например, rootMargin: "100px 0px" будет вызван, когда элемент находится на 100px вниз и 0px вправо от корневого элемента.
+ * threshold - Пороговое значение. Например, threshold: 0.5 будет вызван, когда элемент находится на 50% видимости.
+ */
+
 export const useObserverInfiniteScroll = (props: IUseObserverInfiniteScroll) => {
-    const { callBack, triggerRef, wrapperRef } = props;
+    const { callBack, rootMargin = '100px 0px', threshold = 1.0, triggerRef, wrapperRef } = props;
     const observer = useRef<IntersectionObserver | null>(null);
 
     useEffect(() => {
-        const wrapperElement = wrapperRef ? wrapperRef.current : null; // null === Используем viewport в качестве корневого элемента
+        const wrapperElement = wrapperRef ? wrapperRef.current : null;
         const triggerElement = triggerRef.current;
 
         if (callBack) {
-            const options = {
+            const options: IObserverOptions = {
                 root: wrapperElement,
-                rootMargin: '0px', // Можно добавить отступы к корневому элементу
-                threshold: 1.0 //0.5 === Callback будет вызван, когда элемент на 50% виден в viewport
+                rootMargin: rootMargin,
+                threshold: threshold
             };
 
             observer.current = new IntersectionObserver(([entry]) => {
