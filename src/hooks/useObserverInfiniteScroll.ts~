@@ -1,5 +1,10 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
 
+/**
+ * Тип для CSS-длины, который может быть 'auto', процентом, em, px или rem.
+ *
+ * @typedef {('auto' | `${number}%` | `${number}em` | `${number}px` | `${number}rem`)} CSSLength
+ */
 type CSSLength = 'auto' | `${number}%` | `${number}em` | `${number}px` | `${number}rem`;
 
 interface IObserverOptions {
@@ -8,6 +13,11 @@ interface IObserverOptions {
     threshold: number;
 }
 
+/**
+ * Интерфейс для опций, которые могут быть переданы в хук, исключая свойство 'root'.
+ *
+ * @typedef {Omit<IObserverOptions, 'root'>} PropsOptions
+ */
 type PropsOptions = Omit<IObserverOptions, 'root'>;
 
 export interface IUseObserverInfiniteScroll extends Partial<PropsOptions> {
