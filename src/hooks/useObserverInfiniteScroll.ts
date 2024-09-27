@@ -17,14 +17,12 @@ export interface IUseObserverInfiniteScroll extends Partial<PropsOptions> {
 }
 
 /**
- *
- * @param props {callBack: () => void, rootMargin: string, threshold: number, triggerRef: MutableRefObject<HTMLDivElement>, wrapperRef?: MutableRefObject<HTMLDivElement> }
- *
- * callBack - Функция, которая будет вызвана при попадании в область наблюдения.
- * triggerRef - Элемент, который будет вызывать срабатывание callback при попадании в область наблюдения.
- * wrapperRef - Элемент, который будет использоваться как корневой элемент для наблюдения. Если null, то как корневой элемент  будет использоваться viewport (Экран пользователя).
- * rootMargin - Отступы к корневому элементу. Например, rootMargin: "100px 0px" будет вызван, когда элемент находится на 100px вниз и 0px вправо от корневого элемента.
- * threshold - Пороговое значение. Например, threshold: 0.5 будет вызван, когда элемент находится на 50% видимости.
+ * @param {Object} props - Объект с параметрами для настройки наблюдения.
+ * @param {Function} props.callBack - Функция, которая будет вызвана при попадании элемента в область наблюдения.
+ * @param {React.MutableRefObject<HTMLDivElement>} props.triggerRef - Элемент, который будет вызывать срабатывание callback при попадании в область наблюдения.
+ * @param {React.MutableRefObject<HTMLDivElement>} [props.wrapperRef] - Элемент, который будет использоваться как корневой элемент для наблюдения. Если не указан, то как корневой элемент будет использоваться viewport (Экран пользователя).
+ * @param {string} props.rootMargin - Отступы к корневому элементу. Например, "100px 0px" будет вызван, когда элемент находится на 100px вниз и 0px вправо от корневого элемента.
+ * @param {number} props.threshold - Пороговое значение. Например, 0.5 будет вызван, когда элемент находится на 50% видимости.
  */
 
 export const useObserverInfiniteScroll = (props: IUseObserverInfiniteScroll) => {
