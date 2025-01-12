@@ -1,4 +1,4 @@
-import isArray from './is-array';
+import isArray from './isArray';
 
 function isValidArray<T>(value: any): value is T[];
 function isValidArray<T>(value: T[]): value is T[];
