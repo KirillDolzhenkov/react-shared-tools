@@ -1,3 +1,3 @@
-import * as DataValidator from './dataValidators';
+import * as ValidationUtils from './validators'
 
-export { DataValidator as DV };
+export { ValidationUtils as VU }
