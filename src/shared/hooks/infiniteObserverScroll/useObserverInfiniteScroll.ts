@@ -1,13 +1,5 @@
-import { RefObject, useEffect, useRef } from 'react';
-
-export interface IUseObserverInfiniteScroll<
-    T extends HTMLElement> extends Partial<
-    IntersectionObserverInit
-> {
-    callBack?: () => void | Promise<void>;
-    triggerRef: RefObject<T>;
-    wrapperRef?: RefObject<T>;
-}
+import { useEffect, useRef } from 'react';
+import {IUseObserverInfiniteScroll} from "./useObserverInfiniteScroll.types.ts";
 
 /**
  * Хук для реализации бесконечной прокрутки с использованием Intersection Observer API.
