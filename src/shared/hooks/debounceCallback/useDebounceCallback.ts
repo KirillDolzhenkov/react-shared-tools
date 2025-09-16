@@ -1,19 +1,12 @@
-import { useCallback, useRef } from "react";
-
-interface ControlFunctions {   
-  isPending(): boolean;
-}
-
-export type DebouncedState<T extends (...args: any[]) => ReturnType<T>> = ((
-    ...args: Parameters<T>
-) => void) & ControlFunctions;
+import { useCallback, useRef } from 'react';
+import type { DebouncedState } from './useDebounceCallback.types.ts';
 
 function useDebounceCallback<T extends(
-    ...args: any[]) => ReturnType<T>>(
-    callback: T,
-    delay = 300,
+  ...args: any[]) => ReturnType<T>>(
+  callback: T,
+  delay = 300,
 ): DebouncedState<T> {
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timerRef = useRef<null | ReturnType<typeof setTimeout>>(null);
 
   const debouncedFuncInstance = useCallback((...args: Parameters<T>) => {
     if (timerRef.current) {

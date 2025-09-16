@@ -1,1 +1,1 @@
-export { default } from './useObserverInfiniteScroll';
+export { default } from './useObserverInfiniteScroll2.ts';
