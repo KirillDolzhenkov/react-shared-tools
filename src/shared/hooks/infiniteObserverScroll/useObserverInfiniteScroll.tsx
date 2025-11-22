@@ -1,5 +1,6 @@
-import { useEffect, useRef }               from 'react';
-import type { IUseObserverInfiniteScroll } from './useObserverInfiniteScroll.types.ts';
+import { useEffect, useRef } from 'react'
+
+import type { IUseObserverInfiniteScroll } from './useObserverInfiniteScroll.types.ts'
 
 /**
  * Хук для реализации бесконечной прокрутки с использованием Intersection Observer API.
@@ -59,7 +60,7 @@ const useObserverInfiniteScroll = <
 
       observer.current = new IntersectionObserver(async([entry]) => {
         if (entry.isIntersecting) {
-          await callBack();
+          await callBack?.();
         }
       }, options);
 
@@ -71,7 +72,7 @@ const useObserverInfiniteScroll = <
         observer.current.unobserve(triggerElement);
       }
     };
-  }, [callBack, triggerRef, wrapperRef]);
+  }, [callBack, rootMargin, threshold, triggerRef, wrapperRef]);
 
   return {
     triggerRef,
