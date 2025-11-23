@@ -1,5 +1,5 @@
 import { useMemo, useRef, useEffect } from 'react';
-import { DebouncedState }             from './useDebounceCallback.types.ts';
+import type { DebouncedState }        from './useDebounceCallback.types.ts';
 
 /**
  * Custom hook for debouncing a function — delays its execution until a specified
@@ -32,11 +32,16 @@ import { DebouncedState }             from './useDebounceCallback.types.ts';
  * debouncedSearch.cancel(); // cancel completely
  */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function useDebounceCallback<F extends (...args: any[]) => ReturnType<F>>(
   callback: F,
   delay = 300,
 ): DebouncedState<F> {
-  const timerRef = useRef<null | ReturnType<typeof setTimeout>>(null);
+  const timerRef    = useRef<null | ReturnType<typeof setTimeout>>(null);
+  const argsRef     = useRef<Parameters<F> | null>(null);
+  const callbackRef = useRef(callback);
+
+  callbackRef.current = callback;
 
   useEffect(() => {
     return () => {
@@ -48,13 +53,20 @@ function useDebounceCallback<F extends (...args: any[]) => ReturnType<F>>(
 
   return useMemo(() => {
     const debounced = (...args: Parameters<F>) => {
+      argsRef.current = args;
+
       if (timerRef.current != null) {
         clearTimeout(timerRef.current);
       }
 
       timerRef.current = setTimeout(() => {
         timerRef.current = null;
-        callback?.(...args);
+        const argsToUse = argsRef.current;
+        argsRef.current = null;
+
+        if (argsToUse != null) {
+          callbackRef.current?.(...argsToUse);
+        }
       }, delay);
     };
 
@@ -75,12 +87,16 @@ function useDebounceCallback<F extends (...args: any[]) => ReturnType<F>>(
       if (timerRef.current != null) {
         clearTimeout(timerRef.current);
         timerRef.current = null;
-        callback?.();
       }
-    };
+      if (argsRef.current != null) {
+        const args = argsRef.current;
+        argsRef.current = null;
+        callbackRef.current?.(...args);
+      }
+    }
 
     return func;
-  }, [callback, delay]);
+  }, [delay]);
 }
 
 export default useDebounceCallback;
