@@ -7,5 +7,5 @@ export interface IUseObserverInfiniteScroll<
     triggerRef: RefObject<T | null>;
     wrapperRef?: RefObject<T | null>;
 
-    callBack?(): Promise<void> | void;
+    callBack?(entry: IntersectionObserverEntry): Promise<void> | void;
 }

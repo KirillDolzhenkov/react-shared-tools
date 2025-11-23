@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import type { DebouncedState } from './useDebounceCallback.types.ts';
 
 function useDebounceCallback<T extends(
-  ...args: any[]) => ReturnType<T>>(
+  ...args: any) => ReturnType<T>>(
   callback: T,
   delay = 300,
 ): DebouncedState<T> {

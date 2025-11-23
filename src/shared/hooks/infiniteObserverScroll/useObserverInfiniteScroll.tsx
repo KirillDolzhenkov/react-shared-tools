@@ -60,7 +60,7 @@ const useObserverInfiniteScroll = <
 
       observer.current = new IntersectionObserver(async([entry]) => {
         if (entry.isIntersecting) {
-          await callBack?.();
+          await callBack?.(entry);
         }
       }, options);
 
