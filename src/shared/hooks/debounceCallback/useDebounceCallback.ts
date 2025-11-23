@@ -14,7 +14,7 @@ function useDebounceCallback<T extends(
     }
 
     timerRef.current = setTimeout(() => {
-      callback(...args);
+      callback?.(...args);
       timerRef.current = null;
     }, delay);
   }, [callback, delay]);
