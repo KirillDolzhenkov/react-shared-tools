@@ -1,7 +1,9 @@
 interface ControlFunctions {
   isPending(): boolean;
+  cancel(): void;
+  flush(): void;
 }
 
-export type DebouncedState<T extends (...args: any) => ReturnType<T>> = ((
-  ...args: Parameters<T>
+export type DebouncedState<F extends (...args: any[]) => ReturnType<F>> = ((
+  ...args: Parameters<F>
 ) => void) & ControlFunctions;
