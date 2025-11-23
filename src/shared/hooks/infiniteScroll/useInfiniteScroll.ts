@@ -6,11 +6,11 @@ export interface IUseInfiniteScroll {
 }
 
 /**
- * Хук для реализации бесконечной прокрутки.
+ * Custom hook for implementing infinite scroll.
  *
- * @param {IUseInfiniteScroll} props - Объект с параметрами для настройки бесконечной прокрутки.
- * @param {Function} [props.callBack] - Функция, которая будет вызвана, когда пользователь приблизится к нижней части страницы.
- * @param {number} [props.distanceToBottom=100] - Расстояние от нижней части страницы, при котором будет вызван callBack. По умолчанию 100 пикселей.
+ * @param {IUseInfiniteScroll} props - Configuration object for infinite scroll settings.
+ * @param {Function} [props.callBack] - Function that will be called when the user scrolls near the bottom of the page.
+ * @param {number} [props.distanceToBottom=100] - Distance in pixels from the bottom of the page at which the callBack is triggered. Defaults to 100 pixels.
  *
  * @example
  * const MyComponent = () => {
