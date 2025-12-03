@@ -46,7 +46,7 @@ const useInfiniteScroll = (props: IUseInfiniteScroll) => {
     return () => {
       document.removeEventListener('scroll', handleScroll);
     };
-  }, [callBack, distanceToBottom]);
+  }, [distanceToBottom]);
 };
 
 export default useInfiniteScroll;

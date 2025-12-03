@@ -77,7 +77,7 @@ const useObserverInfiniteScroll = <
         observer.current.unobserve(triggerElement);
       }
     };
-  }, [callBack, rootMargin, threshold, triggerRef, wrapperRef]);
+  }, [triggerRef, wrapperRef]);
 
   return {
     triggerRef,
