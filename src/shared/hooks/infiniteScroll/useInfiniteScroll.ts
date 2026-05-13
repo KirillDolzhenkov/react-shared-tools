@@ -1,9 +1,6 @@
 import { useEffect } from 'react';
 
-export interface IUseInfiniteScroll {
-  callBack?: () => void;
-  distanceToBottom?: number;
-}
+import { IUseInfiniteScroll } from './useInfiniteScroll.types.ts';
 
 /**
  * Custom hook for implementing infinite scroll.
